@@ -22,15 +22,15 @@ class User extends Component{
       this.setState({ user: response.data });
       response = await axios.get(`/api/users/${this.props.userId}/stories`);
       this.setState({ stories: response.data });
-      
     }
   }
+  
+
   render(){
     const { user, stories } = this.state;
-    console.log(stories);
     return (
       <div>
-        Details for { user.name }
+         Details for { user.name }
         <p>
           { user.bio }
         </p>

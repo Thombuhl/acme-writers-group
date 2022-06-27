@@ -3,9 +3,11 @@ const app = express();
 const { User, Story } = require('./db');
 const path = require('path');
 
+app.use(express.json())
 app.use('/dist', express.static('dist'));
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
+
 app.get('/api/users', async(req, res, next)=> {
   try {
     res.send(await User.findAll({
@@ -13,6 +15,37 @@ app.get('/api/users', async(req, res, next)=> {
         exclude: ['bio']
       } 
     }));
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+
+app.delete('/api/users/:id', async(req, res, next)=> {
+  try {
+    if(req.params.id){
+      const user = await User.findByPk(req.params.id)
+      user.destroy()
+      res.send('Resource Successfully Deleted')
+    } else {
+      res.send('User already deleted')
+    }
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+app.delete('/api/stories/:id', async(req, res, next)=> {
+  try {
+    if(req.params.id){
+      const story = await User.findByPk(req.params.id)
+      story.destroy()
+      res.send('Resource Successfully Deleted')
+    } else {
+      res.send('story already deleted')
+    }
   }
   catch(ex){
     next(ex);

@@ -12,6 +12,7 @@ class App extends Component{
       users: [],
       userId: ''
     };
+    this.deleteAUser = this.deleteAUser.bind(this);
   }
   async componentDidMount(){
     try {
@@ -29,13 +30,22 @@ class App extends Component{
     }
 
   }
+
+  
+async deleteAUser(user) {
+   const userIdentifier = user.id
+   await axios.delete(`/api/users/${userIdentifier}`)
+   const users = this.state.users.filter(user => user.id !== userIdentifier)
+   this.setState({ users})
+  }
+
   render(){
     const { users, userId } = this.state;
     return (
       <div>
         <h1>Acme Writers Group ({ users.length })</h1>
         <main>
-          <Users users = { users } userId={ userId }/>
+          <Users users = { users } userId={ userId } deleteAUser={this.deleteAUser} /> 
           {
             userId ? <User userId={ userId } /> : null
           }
