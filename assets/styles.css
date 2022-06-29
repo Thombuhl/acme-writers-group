@@ -1,0 +1,47 @@
+#story {
+  border: black dashed;
+  border-radius: 1rem;
+  background: linear-gradient(
+    rgba(255, 0, 247, 0.1), 
+    rgba(238, 231, 231, 0.8));
+}
+
+#names {
+  padding: none;
+  background: linear-gradient(
+    rgba(207, 4, 201, 0.1), 
+    rgba(179, 33, 33, 0.8));
+}
+
+
+.selected {
+  background-color: dodgerBlue;
+}
+
+.selected a {
+  color: cornSilk;
+}
+
+main {
+  display: flex;
+}
+
+li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+  flex-direction: column;
+}
+
+button {
+  margin: 1rem;
+  background: linear-gradient(
+    rgba(255, 0, 247, 0.1), 
+    rgba(238, 231, 231, 0.8));
+}
+
+p {
+  width: 30rem;
+}

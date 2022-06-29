@@ -13,6 +13,8 @@ class App extends Component{
       userId: ''
     };
     this.deleteAUser = this.deleteAUser.bind(this);
+    this.createAUser = this.createAUser.bind(this)
+
   }
   async componentDidMount(){
     try {
@@ -35,9 +37,20 @@ class App extends Component{
 async deleteAUser(user) {
    const userIdentifier = user.id
    await axios.delete(`/api/users/${userIdentifier}`)
-   const users = this.state.users.filter(user => user.id !== userIdentifier)
+   let users = this.state.users.filter(user => user.id !== userIdentifier)
    this.setState({ users})
+   window.location.hash = '#';
   }
+
+
+async createAUser() {
+   await axios.post(`/api/users`)
+  const response = await axios.get('/api/users');
+  this.setState({users: response.data})
+}
+
+ 
+
 
   render(){
     const { users, userId } = this.state;
@@ -45,9 +58,9 @@ async deleteAUser(user) {
       <div>
         <h1>Acme Writers Group ({ users.length })</h1>
         <main>
-          <Users users = { users } userId={ userId } deleteAUser={this.deleteAUser} /> 
+          <Users users = { users } userId={ userId } deleteAUser={this.deleteAUser} createAUser={this.createAUser} /> 
           {
-            userId ? <User userId={ userId } /> : null
+            userId ? <User userId={ userId }  /> : null
           }
         </main>
       </div>
